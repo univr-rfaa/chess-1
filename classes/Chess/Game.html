@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: Chess::Game</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />Chess::Game</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/chess/game_rb.html">lib/chess/game.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      CGame         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description">
+<p>This class rappresents a chess game.</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                      <li><a href="#method-i-active_player">active_player</a></li>
+                <li><a href="#method-i-inactive_player">inactive_player</a></li>
+                <li><a href="#method-c-load_fen">load_fen</a></li>
+                <li><a href="#method-c-load_pgn">load_pgn</a></li>
+                <li><a href="#method-i-move">move</a></li>
+                      <li><a href="#method-i-moves-3D">moves=</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-over-3F">over?</a></li>
+                <li><a href="#method-i-pgn">pgn</a></li>
+                <li><a href="#method-i-status">status</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-load_fen"></a>
+            <b>load_fen</b>(fen)          
+        </div>
+
+                  <div class="description">
+            <p>Creates a new game from a FEN string. <strong>Warning</strong>: this game
+do not have history before the FEN placement. May be raise an <a
+href="InvalidFenFormatError.html">InvalidFenFormatError</a>.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load_fen_source')"
+                 id="l_method-c-load_fen_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load_fen_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_fen</span>(<span class="ruby-identifier">fen</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">fen</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%r^((?:[PRNBQKprnbqk1-8]{1,8}\/){7}[RNBQKPrnbqkp1-8]{1,8})\s(w|b)\s(K?Q?k?q?|\-)\s([a-h][1-8]|\-)\s(\d+)\s(\d+)$/</span>
+    <span class="ruby-identifier">game</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Game</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">game</span>.<span class="ruby-identifier">set_fen!</span>(<span class="ruby-identifier">fen</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">game</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidFenFormatError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">fen</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-load_pgn"></a>
+            <b>load_pgn</b>(file)          
+        </div>
+
+                  <div class="description">
+            <p>Creates a new game from a file in PGN format. May be raise an <a
+href="InvalidPgnFormatError.html">InvalidPgnFormatError</a> or <a
+href="IllegalMoveError.html">IllegalMoveError</a> or <a
+href="BadNotationError.html">BadNotationError</a>.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load_pgn_source')"
+                 id="l_method-c-load_pgn_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load_pgn_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_pgn</span>(<span class="ruby-identifier">file</span>)
+  <span class="ruby-identifier">pgn</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Pgn</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>)
+  <span class="ruby-identifier">game</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Game</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">pgn</span>.<span class="ruby-identifier">moves</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">game</span>.<span class="ruby-identifier">move</span>(<span class="ruby-identifier">m</span>) }
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">game</span>
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(moves = [])          
+        </div>
+
+                  <div class="description">
+            <p>Create a new game. If an array of moves is provided, the moves will be
+performed. May be raise an <a
+href="IllegalMoveError.html">IllegalMoveError</a> or <a
+href="BadNotationError.html">BadNotationError</a>.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">moves</span> = [])
+  <span class="ruby-identifier">moves</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">move</span>(<span class="ruby-identifier">m</span>) }
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-active_player"></a>
+            <b>active_player</b>()          
+        </div>
+
+                  <div class="description">
+            <p>Returns <code>:white</code> if the active player is the white player,
+<code>:black</code> otherwise.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('active_player_source')"
+                 id="l_method-i-active_player_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="active_player_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">active_player</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">active_color</span> <span class="ruby-operator">?</span> <span class="ruby-value">:black</span> <span class="ruby-operator">:</span> <span class="ruby-value">:white</span>
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-inactive_player"></a>
+            <b>inactive_player</b>()          
+        </div>
+
+                  <div class="description">
+            <p>Returns <code>:white</code> if the inactive player is the white player,
+<code>:black</code> otherwise.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('inactive_player_source')"
+                 id="l_method-i-inactive_player_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="inactive_player_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">inactive_player</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">active_color</span> <span class="ruby-operator">?</span> <span class="ruby-value">:white</span> <span class="ruby-operator">:</span> <span class="ruby-value">:black</span>
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-move"></a>
+            <b>move</b>(m)          
+        </div>
+
+                  <div class="description">
+            <p>Make a move. This add a new <a href="Board.html">Board</a> in the
+Storyboard. The parameter <code>m</code> represents the short algebraic
+chess notation string of the move. <code>m</code> can be
+<em>from_square</em> plus <em>to_square</em> <em>(‘e2e4’, …, ‘b1c3’)</em>.
+This method returns a string that represents the short algebraic chess
+notation of the move. Raise an <a
+href="IllegalMoveError.html">IllegalMoveError</a> if the move is illegal.
+Raise an <a href="BadNotationError.html">BadNotationError</a> if the short
+algebraic chess notation is malformed.</p>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="Game.html#method-i-move-3D">move=</a>                          <a href="Game.html#method-i-3C-3C"><<</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('move_source')"
+                 id="l_method-i-move_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="move_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">move</span>(<span class="ruby-identifier">m</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">expand</span> = <span class="ruby-identifier">expand_move</span>(<span class="ruby-identifier">m</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">expand</span>[<span class="ruby-value">:from</span>]
+      <span class="ruby-identifier">move2</span>(<span class="ruby-identifier">expand</span>[<span class="ruby-value">:from</span>], <span class="ruby-identifier">expand</span>[<span class="ruby-value">:to</span>], <span class="ruby-identifier">expand</span>[<span class="ruby-value">:promotion</span>])
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">super</span>(<span class="ruby-identifier">expand</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">expand</span>[<span class="ruby-value">:dis</span>], <span class="ruby-identifier">expand</span>[<span class="ruby-value">:to</span>], <span class="ruby-identifier">expand</span>[<span class="ruby-value">:promotion</span>])
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">IllegalMoveError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">IllegalMoveError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Illegal move '#{m}'\n#{self.to_s}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-moves-3D"></a>
+            <b>moves=</b>(moves)          
+        </div>
+
+                  <div class="description">
+            <p>Make the array of moves.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('moves-3D_source')"
+                 id="l_method-i-moves-3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="moves-3D_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">moves=</span>(<span class="ruby-identifier">moves</span>)
+  <span class="ruby-identifier">moves</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">move</span>(<span class="ruby-identifier">m</span>) }
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-over-3F"></a>
+            <b>over?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>Returns <code>true</code> if the game is over</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('over-3F_source')"
+                 id="l_method-i-over-3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="over-3F_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">over?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">result</span> <span class="ruby-operator">!=</span> <span class="ruby-string">'*'</span>
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-pgn"></a>
+            <b>pgn</b>()          
+        </div>
+
+                  <div class="description">
+            <p>Returns the PGN rappresenting the game.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('pgn_source')"
+                 id="l_method-i-pgn_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="pgn_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">pgn</span>
+  <span class="ruby-identifier">pgn</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Pgn</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">pgn</span>.<span class="ruby-identifier">moves</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">moves</span>
+  <span class="ruby-identifier">pgn</span>.<span class="ruby-identifier">result</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">result</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">pgn</span>
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-status"></a>
+            <b>status</b>()          
+        </div>
+
+                  <div class="description">
+            <p>Returns the status of the game. Possible states are:</p>
+<ul><li><dl class="rdoc-list note-list"><dt><code>in_progress</code>
+<dd>
+<p>the game is in progress.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list note-list"><dt><code>white_won</code>
+<dd>
+<p>white player checkmate the black king.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list note-list"><dt><code>black_won</code>
+<dd>
+<p>black player checkmate the white king.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list note-list"><dt><code>stalemate</code>
+<dd>
+<p>draw for stalemate</p>
+</dd></dl>
+</li><li><dl class="rdoc-list note-list"><dt><code>insufficient_material</code>
+<dd>
+<p>draw for insufficient material to checkmate.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list note-list"><dt><code>unknown</code>
+<dd>
+<p>something went wrong.</p>
+</dd></dl>
+</li></ul>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('status_source')"
+                 id="l_method-i-status_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="status_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">status</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">result</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">'*'</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">:in_progress</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">'1-0'</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">:white_won</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">'0-1'</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">:black_won</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">'1/2-1/2'</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">stalemate?</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-value">:stalemate</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">insufficient_material?</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-value">:insufficient_material</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-value">:unknown</span>
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>
