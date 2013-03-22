@@ -128,7 +128,7 @@ href="Gnuchess.html">Gnuchess</a> must be installed!</p>          </div>
     <span class="ruby-identifier">pipe</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;go\n&quot;</span>)
     <span class="ruby-keyword">while</span> <span class="ruby-identifier">line</span> = <span class="ruby-identifier">pipe</span>.<span class="ruby-identifier">gets</span>
       <span class="ruby-identifier">raise</span> <span class="ruby-constant">IllegalMoveError</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">'Invalid move'</span>)
-      <span class="ruby-identifier">match</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">%rMy move is : ([a-h][1-8][a-h][1-8])/</span>)
+      <span class="ruby-identifier">match</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/My move is : ([a-h][1-8][a-h][1-8])/</span>)
       <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">move</span>(<span class="ruby-identifier">match</span>[<span class="ruby-value">1</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">match</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">ensure</span>
