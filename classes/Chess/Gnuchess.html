@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: Chess::Gnuchess</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />Chess::Gnuchess</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/chess/gnuchess_rb.html">lib/chess/gnuchess.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description">
+<p>Use <a href="Gnuchess.html">Gnuchess</a> to I.A. <em>(Only a draft)</em> To
+use this module, extend a game object with <a
+href="Gnuchess.html">Chess::Gnuchess</a></p>
+
+<pre>g = Chess::Game.new
+g.extend Chess::Gnuchess
+g.gnuchess_move
+puts g</pre>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-gnuchess_move">gnuchess_move</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-gnuchess_move"></a>
+            <b>gnuchess_move</b>()          
+        </div>
+
+                  <div class="description">
+            <p>Make a move using <a href="Gnuchess.html">Gnuchess</a> engine. This add a
+new <a href="Board.html">Board</a> in the <a href="Game.html">Game</a>.
+Return the next move calculated by <a href="Gnuchess.html">Gnuchess</a>. <a
+href="Gnuchess.html">Gnuchess</a> must be installed!</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('gnuchess_move_source')"
+                 id="l_method-i-gnuchess_move_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="gnuchess_move_source">
+<pre>
+  <span class="ruby-comment"># File lib/chess/gnuchess.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">gnuchess_move</span>
+  <span class="ruby-identifier">pipe</span> = <span class="ruby-constant">IO</span>.<span class="ruby-identifier">popen</span>(<span class="ruby-string">'gnuchess -x'</span>, <span class="ruby-string">'r+'</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">pipe</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;depth 1\n&quot;</span>)
+    <span class="ruby-identifier">pipe</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;force\n&quot;</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">full_moves</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">pipe</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">m</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;\n&quot;</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">pipe</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;go\n&quot;</span>)
+    <span class="ruby-keyword">while</span> <span class="ruby-identifier">line</span> = <span class="ruby-identifier">pipe</span>.<span class="ruby-identifier">gets</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">IllegalMoveError</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">'Invalid move'</span>)
+      <span class="ruby-identifier">match</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/My move is : ([a-h][1-8][a-h][1-8])/</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">move</span>(<span class="ruby-identifier">match</span>[<span class="ruby-value">1</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">match</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">ensure</span>
+    <span class="ruby-identifier">pipe</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;quit\n&quot;</span>)
+    <span class="ruby-identifier">pipe</span>.<span class="ruby-identifier">close</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

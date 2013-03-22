@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: Chess::Board</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />Chess::Board</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/ext/chess_c.html">ext/chess.c</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      Object         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description">
+<p>This class rappresents a collection of boards of a single chess game.</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-active_color">active_color</a></li>
+                <li><a href="#method-i-check-3F">check?</a></li>
+                <li><a href="#method-i-checkmate-3F">checkmate?</a></li>
+                <li><a href="#method-i-fifty_rule_move-3F">fifty_rule_move?</a></li>
+                <li><a href="#method-i-fullmove_number">fullmove_number</a></li>
+                <li><a href="#method-i-halfmove_clock">halfmove_clock</a></li>
+                <li><a href="#method-i-insufficient_material-3F">insufficient_material?</a></li>
+                <li><a href="#method-i-placement">placement</a></li>
+                <li><a href="#method-i-stalemate-3F">stalemate?</a></li>
+                <li><a href="#method-i-to_fen">to_fen</a></li>
+                <li><a href="#method-i-to_s">to_s</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-active_color"></a>
+            <b>active_color</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Returns the active color: <code>false</code> means white turn,
+<code>true</code> means black turn.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('active_color_source')"
+                 id="l_method-i-active_color_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="active_color_source">
+<pre>
+  VALUE
+board_active_color (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  if (board-&gt;active_color)
+    return Qtrue;
+  else
+    return Qfalse;
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-check-3F"></a>
+            <b>check?</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Returns <code>true</code> if the king of the color that has the turn is in
+check, <code>false</code> otherwise.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('check-3F_source')"
+                 id="l_method-i-check-3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="check-3F_source">
+<pre>
+  VALUE
+board_king_in_check (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  if (king_in_check (board, board-&gt;active_color))
+    return Qtrue;
+  else
+    return Qfalse;
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-checkmate-3F"></a>
+            <b>checkmate?</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Returns <code>true</code> if the king of the color that has the turn is in
+checkmate, <code>false</code> otherwise.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('checkmate-3F_source')"
+                 id="l_method-i-checkmate-3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="checkmate-3F_source">
+<pre>
+  VALUE
+board_king_in_checkmate (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  if (king_in_checkmate (board, board-&gt;active_color))
+    return Qtrue;
+  else
+    return Qfalse;
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-fifty_rule_move-3F"></a>
+            <b>fifty_move_rule?</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Returns <code>true</code> if a player can claim draw by the fifty-move
+rule, <code>false</code> otherwise.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('fifty_rule_move-3F_source')"
+                 id="l_method-i-fifty_rule_move-3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="fifty_rule_move-3F_source">
+<pre>
+  VALUE
+board_fifty_move_rule (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  if (fifty_move_rule (board))
+    return Qtrue;
+  else
+    return Qfalse;
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-fullmove_number"></a>
+            <b>fullmove_number</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Returns the fullmove number: the number of the full move. It starts at 1,
+and is incremented after black’s move.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('fullmove_number_source')"
+                 id="l_method-i-fullmove_number_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="fullmove_number_source">
+<pre>
+  VALUE
+board_fullmove_number (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  return INT2FIX (board-&gt;fullmove_number);
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-halfmove_clock"></a>
+            <b>halfmove_clock</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Returns the halfmove clock that is the number of halfmoves since the last
+pawn advance or capture. This is used to determine if a draw can be claimed
+under the fifty-move rule.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('halfmove_clock_source')"
+                 id="l_method-i-halfmove_clock_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="halfmove_clock_source">
+<pre>
+  VALUE
+board_halfmove_clock (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  return INT2FIX (board-&gt;halfmove_clock);
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-insufficient_material-3F"></a>
+            <b>insufficient_material?</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Returns <code>true</code> if the board has insufficient material to
+checkmate, <code>false</code> otherwise.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('insufficient_material-3F_source')"
+                 id="l_method-i-insufficient_material-3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="insufficient_material-3F_source">
+<pre>
+  VALUE
+board_insufficient_material (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  if (insufficient_material (board))
+    return Qtrue;
+  else
+    return Qfalse;
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-placement"></a>
+            <b>placement { |piece, index| block }</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Calls <code>block</code> once for each square in the board, passing the
+<code>piece</code> in the square and the <code>index</code> as parameters.
+Return self. If no block is given, the array of pieces is returned instead.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('placement_source')"
+                 id="l_method-i-placement_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="placement_source">
+<pre>
+  VALUE
+board_placement (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  int i;
+  char piece[2];
+  piece[1] = '\0';
+  if (!rb_block_given_p ())
+    {
+      VALUE placement = rb_ary_new ();
+      for (i = 0; i &lt; 64; i++)
+        {
+          piece[0] = board-&gt;placement[i];
+          rb_ary_push (placement, rb_str_new2 (piece));
+        }
+      return placement;
+    }
+  else
+    {
+      for (i = 0; i &lt; 64; i++)
+        {
+          piece[0] = board-&gt;placement[i];
+          rb_yield_values (2, rb_str_new2 (piece), INT2FIX (i));
+        }
+      return self;
+    }
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-stalemate-3F"></a>
+            <b>stalemate?</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Returns <code>true</code> if the pieces of the color that has the turn are
+in stalemate, <code>false</code> otherwise.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('stalemate-3F_source')"
+                 id="l_method-i-stalemate-3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="stalemate-3F_source">
+<pre>
+  VALUE
+board_stalemate (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  if (stalemate (board, board-&gt;active_color))
+    return Qtrue;
+  else
+    return Qfalse;
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_fen"></a>
+            <b>to_fen</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>Return the FEN string of the board.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to_fen_source')"
+                 id="l_method-i-to_fen_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to_fen_source">
+<pre>
+  VALUE
+board_to_fen (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  char *fen = to_fen (board);
+  VALUE rb_fen = rb_str_new2 (fen);
+  free (fen);
+  return rb_fen;
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_s"></a>
+            <b>to_s</b>
+          
+        </div>
+
+                  <div class="description">
+            <p><a href="Board.html">Board</a> to string.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to_s_source')"
+                 id="l_method-i-to_s_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to_s_source">
+<pre>
+  VALUE
+board_to_s (VALUE self)
+{
+  Board *board;
+  Data_Get_Struct (self, Board, board);
+  char *s = print_board (board);
+  VALUE rb_s = rb_str_new2 (s);
+  free (s);
+  return rb_s;
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

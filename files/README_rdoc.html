@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>File: README.rdoc</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table border='0' cellpadding='0' cellspacing='0' width="100%" class='banner'>
+    <tr><td>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0'><tr>
+      <td class="file-title" colspan="2"><span class="file-title-prefix">File</span><br />README.rdoc</td>
+      <td align="right">
+        <table border='0' cellspacing="0" cellpadding="2">
+          <tr>
+            <td>Path:</td>
+            <td>README.rdoc            </td>
+          </tr>
+          <tr>
+            <td>Modified:</td>
+            <td>2013-03-22 14:50:39 +0100</td>
+          </tr>
+        </table>
+      </td></tr>
+    </table>
+  </td></tr>
+</table><br />
+  <div id="bodyContent">
+  <div id="content">
+  <div class="description">
+<h1 id="label-Chess"><a href="../classes/Chess.html">Chess</a></h1>
+
+<p>A fast Ruby library to play chess with Ruby. This library is quite fast
+because rappresent the game situations with bitboards. In addition, the
+move generator is written in C as a Ruby extension.</p>
+
+<h2 id="label-Requirements">Requirements</h2>
+<ul><li>
+<p>Ruby 1.9 or higher</p>
+</li></ul>
+
+<h2 id="label-Installation">Installation</h2>
+
+<pre>gem install chess</pre>
+
+<h2 id="label-Usage">Usage</h2>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">'chess'</span>
+<span class="ruby-identifier">g</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Game</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">while</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">g</span>.<span class="ruby-identifier">over?</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;Give me a #{g.active_player} move: &quot;</span>
+    <span class="ruby-identifier">input</span> = <span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chop</span>
+    <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span> <span class="ruby-operator">==</span> <span class="ruby-string">'quit'</span>
+    <span class="ruby-identifier">g</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">input</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">g</span>.<span class="ruby-identifier">board</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">g</span>.<span class="ruby-identifier">moves</span>.<span class="ruby-identifier">last</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">IllegalMoveError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">'Illegal move!'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-identifier">g</span>.<span class="ruby-identifier">status</span>
+</pre>
+
+<p>Documentation is available <a href="http://pioz.github.com/chess">here</a>.</p>
+
+<h2 id="label-Questions+or+problems%3F">Questions or problems?</h2>
+
+<p>If you have any issues please add an <a
+href="https://github.com/pioz/chess/issues">issue on GitHub</a> or fork the
+project and send a pull request.</p>
+
+<h2 id="label-Copyright">Copyright</h2>
+
+<p>Copyright © 2012 <a href="https://github.com/pioz">Enrico Pilotto
+(@pioz)</a>. See <a
+href="https://github.com/pioz/chess/blob/master/LICENSE">LICENSE</a> for
+details.</p>
+</div>
+  </div>
+</div>
+  </body>
+</html>
