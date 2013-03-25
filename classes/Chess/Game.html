@@ -109,9 +109,10 @@
         </div>
 
                   <div class="description">
-            <p>Creates a new game from a FEN string. <strong>Warning</strong>: this game
-do not have history before the FEN placement. May be raise an <a
-href="InvalidFenFormatError.html">InvalidFenFormatError</a>.</p>          </div>
+            <p>Creates a new game from a FEN string. May be raise an <a
+href="InvalidFenFormatError.html">InvalidFenFormatError</a>.
+<strong>Warning</strong>: this game do not have history before the FEN
+placement.</p>          </div>
         
         
                   <div class="sourcecode">
@@ -123,9 +124,9 @@ href="InvalidFenFormatError.html">InvalidFenFormatError</a>.</p>          </div>
             <div class="dyn-source"
                     id="load_fen_source">
 <pre>
-  <span class="ruby-comment"># File lib/chess/game.rb, line 26</span>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_fen</span>(<span class="ruby-identifier">fen</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">fen</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^((?:[PRNBQKprnbqk1-8]{1,8}\/){7}[RNBQKPrnbqkp1-8]{1,8})\s(w|b)\s(K?Q?k?q?|\-)\s([a-h][1-8]|\-)\s(\d+)\s(\d+)$/</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">fen</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^((?:[PRNBQKprnbqk1-8]{1,8}\/){7}[RNBQKPrnbqkp1-8]{1,8})\s(w|b)\s(K?Q?k?q?|-)\s([a-h][1-8]|-)\s(\d+)\s(\d+)$/</span>
     <span class="ruby-identifier">game</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Game</span>.<span class="ruby-identifier">new</span>
     <span class="ruby-identifier">game</span>.<span class="ruby-identifier">set_fen!</span>(<span class="ruby-identifier">fen</span>)
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">game</span>
@@ -166,6 +167,19 @@ href="BadNotationError.html">BadNotationError</a>.</p>          </div>
   <span class="ruby-identifier">pgn</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Pgn</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>)
   <span class="ruby-identifier">game</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Game</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">pgn</span>.<span class="ruby-identifier">moves</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">game</span>.<span class="ruby-identifier">move</span>(<span class="ruby-identifier">m</span>) }
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">game</span>.<span class="ruby-identifier">over?</span>
+    <span class="ruby-keyword">case</span> <span class="ruby-identifier">pgn</span>.<span class="ruby-identifier">result</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'1-0'</span>
+      <span class="ruby-identifier">game</span>.<span class="ruby-identifier">resign</span>(<span class="ruby-value">:black</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'0-1'</span>
+      <span class="ruby-identifier">game</span>.<span class="ruby-identifier">resign</span>(<span class="ruby-value">:white</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'1/2-1/2'</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">game</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">insufficient_material?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">game</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">stalemate?</span> <span class="ruby-operator">||</span>
+        <span class="ruby-identifier">game</span>.<span class="ruby-identifier">threefold_repetition?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">game</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">fifty_rule_move?</span>
+        <span class="ruby-identifier">game</span>.<span class="ruby-identifier">draw</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">game</span>
 <span class="ruby-keyword">end</span></pre>
             </div>
@@ -231,7 +245,7 @@ href="BadNotationError.html">BadNotationError</a>.</p>          </div>
             <div class="dyn-source"
                     id="active_player_source">
 <pre>
-  <span class="ruby-comment"># File lib/chess/game.rb, line 63</span>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">active_player</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">active_color</span> <span class="ruby-operator">?</span> <span class="ruby-value">:black</span> <span class="ruby-operator">:</span> <span class="ruby-value">:white</span>
 <span class="ruby-keyword">end</span></pre>
@@ -261,7 +275,7 @@ href="BadNotationError.html">BadNotationError</a>.</p>          </div>
             <div class="dyn-source"
                     id="inactive_player_source">
 <pre>
-  <span class="ruby-comment"># File lib/chess/game.rb, line 68</span>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inactive_player</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">active_color</span> <span class="ruby-operator">?</span> <span class="ruby-value">:white</span> <span class="ruby-operator">:</span> <span class="ruby-value">:black</span>
 <span class="ruby-keyword">end</span></pre>
@@ -301,7 +315,7 @@ algebraic chess notation is malformed.</p>          </div>
             <div class="dyn-source"
                     id="move_source">
 <pre>
-  <span class="ruby-comment"># File lib/chess/game.rb, line 42</span>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">move</span>(<span class="ruby-identifier">m</span>)
   <span class="ruby-keyword">begin</span>
     <span class="ruby-identifier">expand</span> = <span class="ruby-identifier">expand_move</span>(<span class="ruby-identifier">m</span>)
@@ -339,7 +353,7 @@ algebraic chess notation is malformed.</p>          </div>
             <div class="dyn-source"
                     id="moves-3D_source">
 <pre>
-  <span class="ruby-comment"># File lib/chess/game.rb, line 58</span>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">moves=</span>(<span class="ruby-identifier">moves</span>)
   <span class="ruby-identifier">moves</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">move</span>(<span class="ruby-identifier">m</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -368,7 +382,7 @@ algebraic chess notation is malformed.</p>          </div>
             <div class="dyn-source"
                     id="over-3F_source">
 <pre>
-  <span class="ruby-comment"># File lib/chess/game.rb, line 99</span>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 128</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">over?</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">result</span> <span class="ruby-operator">!=</span> <span class="ruby-string">'*'</span>
 <span class="ruby-keyword">end</span></pre>
@@ -397,7 +411,7 @@ algebraic chess notation is malformed.</p>          </div>
             <div class="dyn-source"
                     id="pgn_source">
 <pre>
-  <span class="ruby-comment"># File lib/chess/game.rb, line 104</span>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 133</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">pgn</span>
   <span class="ruby-identifier">pgn</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Pgn</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">pgn</span>.<span class="ruby-identifier">moves</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">moves</span>
@@ -424,19 +438,35 @@ algebraic chess notation is malformed.</p>          </div>
 </dd></dl>
 </li><li><dl class="rdoc-list note-list"><dt><code>white_won</code>
 <dd>
-<p>white player checkmate the black king.</p>
+<p>white player has won with a checkmate.</p>
 </dd></dl>
 </li><li><dl class="rdoc-list note-list"><dt><code>black_won</code>
 <dd>
-<p>black player checkmate the white king.</p>
+<p>black player has won with a checkmate.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list note-list"><dt><code>white_won_resign</code>
+<dd>
+<p>white player has won for resign.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list note-list"><dt><code>black_won_resign</code>
+<dd>
+<p>black player has won for resign.</p>
 </dd></dl>
 </li><li><dl class="rdoc-list note-list"><dt><code>stalemate</code>
 <dd>
-<p>draw for stalemate</p>
+<p>draw for stalemate.</p>
 </dd></dl>
 </li><li><dl class="rdoc-list note-list"><dt><code>insufficient_material</code>
 <dd>
 <p>draw for insufficient material to checkmate.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list note-list"><dt><code>fifty_rule_move</code>
+<dd>
+<p>draw for fifty rule move.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list note-list"><dt><code>threefold_repetition</code>
+<dd>
+<p>draw for threefold_repetition.</p>
 </dd></dl>
 </li><li><dl class="rdoc-list note-list"><dt><code>unknown</code>
 <dd>
@@ -454,20 +484,32 @@ algebraic chess notation is malformed.</p>          </div>
             <div class="dyn-source"
                     id="status_source">
 <pre>
-  <span class="ruby-comment"># File lib/chess/game.rb, line 80</span>
+  <span class="ruby-comment"># File lib/chess/game.rb, line 97</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">status</span>
   <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">result</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">'*'</span>
     <span class="ruby-keyword">return</span> <span class="ruby-value">:in_progress</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">'1-0'</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-value">:white_won</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">checkmate?</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-value">:white_won</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-value">:white_won_resign</span>
+    <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">'0-1'</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-value">:black_won</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">checkmate?</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-value">:black_won</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-value">:black_won_resign</span>
+    <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">'1/2-1/2'</span>
     <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">stalemate?</span>
       <span class="ruby-keyword">return</span> <span class="ruby-value">:stalemate</span>
     <span class="ruby-keyword">elsif</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">insufficient_material?</span>
       <span class="ruby-keyword">return</span> <span class="ruby-value">:insufficient_material</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">fifty_rule_move?</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-value">:fifty_rule_move</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">threefold_repetition?</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-value">:threefold_repetition</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-value">:unknown</span>

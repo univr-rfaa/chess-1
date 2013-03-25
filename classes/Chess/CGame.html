@@ -83,12 +83,14 @@
   <ul>
                 <li><a href="#method-i-5B-5D">[]</a></li>
                 <li><a href="#method-i-board">board</a></li>
+                <li><a href="#method-i-draw">draw</a></li>
                 <li><a href="#method-i-each">each</a></li>
                 <li><a href="#method-i-full_moves">full_moves</a></li>
                 <li><a href="#method-i-move">move</a></li>
                 <li><a href="#method-i-move2">move2</a></li>
                 <li><a href="#method-i-move3">move3</a></li>
                 <li><a href="#method-i-moves">moves</a></li>
+                <li><a href="#method-i-resign">resign</a></li>
                 <li><a href="#method-i-result">result</a></li>
                 <li><a href="#method-i-rollback-21">rollback!</a></li>
                 <li><a href="#method-i-set_fen-21">set_fen!</a></li>
@@ -171,6 +173,40 @@ game_last_board (VALUE self)
   Game *g;
   Data_Get_Struct (self, Game, g);
   return game_boards (self, INT2FIX (g-&gt;current-1));
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-draw"></a>
+            <b>draw</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>The game result is set to draw.</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('draw_source')"
+                 id="l_method-i-draw_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="draw_source">
+<pre>
+  VALUE
+game_draw (VALUE self)
+{
+  Game *g;
+  Data_Get_Struct (self, Game, g);
+  g-&gt;result = DRAW;
+  return Qnil;
 }</pre>
             </div>
           </div>
@@ -352,11 +388,11 @@ href="Game.html">Game</a>.</p>
 <p>Parameters are:</p>
 <dl class="rdoc-list note-list"><dt><code>from</code>
 <dd>
-<p>The 2 character string representing the starting square of the moving piece
+<p>the 2 character string representing the starting square of the moving piece
 <em>(‘a1’, ‘a2’, … , ‘h7’, ‘h8’)</em>.</p>
 </dd><dt><code>to</code>
 <dd>
-<p>The 2 character string representing the ending square of the moving piece
+<p>the 2 character string representing the ending square of the moving piece
 <em>(‘a1’, ‘a2’, … , ‘h7’, ‘h8’)</em>.</p>
 </dd><dt><code>promote_in</code>
 <dd>
@@ -426,10 +462,10 @@ following scheme:</p>
 <p>Parameters are:</p>
 <dl class="rdoc-list note-list"><dt><code>from</code>
 <dd>
-<p>The integer representing the starting square of the moving piece.</p>
+<p>the integer representing the starting square of the moving piece.</p>
 </dd><dt><code>to</code>
 <dd>
-<p>The integer representing the ending square of the moving piece.</p>
+<p>the integer representing the ending square of the moving piece.</p>
 </dd><dt><code>promote_in</code>
 <dd>
 <p>the character of promotion piece <em>(‘R’, ‘N’, ‘B’, ‘Q’)</em>. If no
@@ -500,6 +536,56 @@ game_moves (VALUE self)
   for (i = 0; i &lt; g-&gt;current; i++)
     rb_ary_push (moves, rb_str_new2 (g-&gt;moves[i]));
   return moves;
+}</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-resign"></a>
+            <b>resign(color)</b>
+          
+        </div>
+
+                  <div class="description">
+            <p>The game result is set to ‘1-0’ if <code>color</code> is “black”, otherwise
+is set to ‘0-1’ if color is “white”.</p>
+
+<p>Parameters are:</p>
+<dl class="rdoc-list note-list"><dt><code>color</code>
+<dd>
+<p>the color of the player who resigns the game; it can be <code>:white</code>
+or <code>:black</code>.</p>
+</dd></dl>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('resign_source')"
+                 id="l_method-i-resign_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="resign_source">
+<pre>
+  VALUE
+game_resign (VALUE self, VALUE color)
+{
+  Game *g;
+  Data_Get_Struct (self, Game, g);
+  const char *c;
+  if (TYPE (color) == T_SYMBOL)
+    c = rb_id2name (SYM2ID (color));
+  else
+    c = StringValuePtr (color);
+  if (strcmp (c, &quot;black&quot;) == 0)
+    g-&gt;result = WHITE_WON;
+  else if (strcmp (c, &quot;white&quot;) == 0)
+    g-&gt;result = BLACK_WON;
+  return Qnil;
 }</pre>
             </div>
           </div>
