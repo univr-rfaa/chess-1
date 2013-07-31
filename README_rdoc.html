@@ -122,13 +122,13 @@ move generator is written in C as a Ruby extension.</p>
 
 <pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;chess&#39;</span>
 <span class="ruby-identifier">g</span> = <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">Game</span>.<span class="ruby-identifier">new</span>
-<span class="ruby-keyword">while</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">g</span>.<span class="ruby-identifier">over?</span>)
+<span class="ruby-keyword">until</span> <span class="ruby-operator">!</span><span class="ruby-identifier">g</span>.<span class="ruby-identifier">over?</span>
   <span class="ruby-keyword">begin</span>
     <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;Give me a #{g.active_player} move: &quot;</span>
     <span class="ruby-identifier">input</span> = <span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chop</span>
     <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;quit&#39;</span>
     <span class="ruby-identifier">g</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">input</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">g</span>.<span class="ruby-identifier">board</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">g</span>
     <span class="ruby-identifier">puts</span> <span class="ruby-identifier">g</span>.<span class="ruby-identifier">moves</span>.<span class="ruby-identifier">last</span>
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Chess</span><span class="ruby-operator">::</span><span class="ruby-constant">IllegalMoveError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
     <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Illegal move!&#39;</span>
