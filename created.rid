@@ -1,14 +1,14 @@
-Mon, 25 Mar 2013 17:56:34 +0100
-README.rdoc	Mon, 25 Mar 2013 17:56:29 +0100
-lib/chess.rb	Mon, 25 Mar 2013 17:56:29 +0100
-lib/chess/exceptions.rb	Mon, 25 Mar 2013 17:56:29 +0100
-lib/chess/game.rb	Mon, 25 Mar 2013 17:56:29 +0100
-lib/chess/gnuchess.rb	Mon, 25 Mar 2013 17:56:29 +0100
-lib/chess/pgn.rb	Mon, 25 Mar 2013 17:56:29 +0100
-lib/chess/version.rb	Mon, 25 Mar 2013 17:56:29 +0100
-ext/bitboard.c	Mon, 25 Mar 2013 17:56:29 +0100
-ext/board.c	Mon, 25 Mar 2013 17:56:29 +0100
-ext/chess.c	Mon, 25 Mar 2013 17:56:29 +0100
-ext/common.c	Mon, 25 Mar 2013 17:56:29 +0100
-ext/game.c	Mon, 25 Mar 2013 17:56:29 +0100
-ext/special.c	Mon, 25 Mar 2013 17:56:29 +0100
+Wed, 31 Jul 2013 17:15:47 +0200
+README.rdoc	Mon, 25 Mar 2013 18:01:29 +0100
+lib/chess.rb	Mon, 25 Mar 2013 18:01:29 +0100
+lib/chess/exceptions.rb	Mon, 25 Mar 2013 18:01:29 +0100
+lib/chess/game.rb	Wed, 31 Jul 2013 16:50:24 +0200
+lib/chess/gnuchess.rb	Wed, 31 Jul 2013 17:14:55 +0200
+lib/chess/pgn.rb	Mon, 25 Mar 2013 18:01:29 +0100
+lib/chess/version.rb	Mon, 25 Mar 2013 18:01:29 +0100
+ext/bitboard.c	Mon, 25 Mar 2013 18:01:29 +0100
+ext/board.c	Wed, 31 Jul 2013 16:23:26 +0200
+ext/chess.c	Wed, 31 Jul 2013 16:21:03 +0200
+ext/common.c	Mon, 25 Mar 2013 18:01:29 +0100
+ext/game.c	Wed, 31 Jul 2013 16:28:17 +0200
+ext/special.c	Mon, 25 Mar 2013 18:01:29 +0100
