@@ -2,76 +2,76 @@
 
 <html>
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta charset="UTF-8">
 
 <title>class Chess::Game - Chess</title>
 
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+<link href="../fonts.css" rel="stylesheet">
+<link href="../rdoc.css" rel="stylesheet">
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
 </script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/navigation.js"></script>
+<script src="../js/search_index.js"></script>
+<script src="../js/search.js"></script>
+<script src="../js/searcher.js"></script>
+<script src="../js/darkfish.js"></script>
 
 
-<body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
     <a href="../table_of_contents.html#classes">Classes</a>
     <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+  </div>
+</div>
 
-
-  <nav id="search-section" class="section project-section" class="initially-hidden">
+    <div id="search-section" role="search" class="project-section initially-hidden">
   <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
              title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
   </form>
+</div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
-
+  </div>
 
   
-
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/chess/game.rb
-  </ul>
-</nav>
-
-    
-  </div>
 
   <div id="class-metadata">
     
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
   
   <p class="link"><a href="CGame.html">Chess::CGame</a>
   
-</nav>
+</div>
 
     
     
     <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
 
-  <ul class="link-list">
+  <ul class="link-list" role="directory">
     
     <li ><a href="#method-c-load_fen">::load_fen</a>
     
@@ -98,60 +98,21 @@
     <li ><a href="#method-i-status">#status</a>
     
   </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../README_rdoc.html">README</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../Chess.html">Chess</a>
-  
-    <li><a href="../Chess/BadNotationError.html">Chess::BadNotationError</a>
-  
-    <li><a href="../Chess/Board.html">Chess::Board</a>
-  
-    <li><a href="../Chess/CGame.html">Chess::CGame</a>
-  
-    <li><a href="../Chess/Game.html">Chess::Game</a>
-  
-    <li><a href="../Chess/Gnuchess.html">Chess::Gnuchess</a>
-  
-    <li><a href="../Chess/IllegalMoveError.html">Chess::IllegalMoveError</a>
-  
-    <li><a href="../Chess/InvalidFenFormatError.html">Chess::InvalidFenFormatError</a>
-  
-    <li><a href="../Chess/InvalidPgnFormatError.html">Chess::InvalidPgnFormatError</a>
-  
-    <li><a href="../Chess/Pgn.html">Chess::Pgn</a>
-  
-  </ul>
-</nav>
+</div>
 
   </div>
 </nav>
 
-<div id="documentation">
-  <h1 class="class">class Chess::Game</h1>
+<main role="main" aria-labelledby="class-Chess::Game">
+  <h1 id="class-Chess::Game" class="class">
+    class Chess::Game
+  </h1>
 
-  <div id="description" class="description">
+  <section class="description">
     
 <p>This class rappresents a chess game.</p>
 
-  </div><!-- description -->
+  </section>
 
   
   
@@ -165,10 +126,11 @@
 
     
 
-    <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
 
     
       <div id="method-c-load_fen" class="method-detail ">
@@ -203,14 +165,14 @@ placement.</p>
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidFenFormatError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">fen</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- load_fen-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- load_fen-method -->
+      </div>
 
     
       <div id="method-c-load_pgn" class="method-detail ">
@@ -255,14 +217,14 @@ href="BadNotationError.html">BadNotationError</a>.</p>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">game</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- load_pgn-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- load_pgn-method -->
+      </div>
 
     
       <div id="method-c-new" class="method-detail ">
@@ -291,20 +253,22 @@ href="BadNotationError.html">BadNotationError</a>.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">moves</span> = [])
   <span class="ruby-identifier">moves</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">move</span>(<span class="ruby-identifier">m</span>) }
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- new-method -->
+      </div>
 
     
-    </section><!-- public-class-method-details -->
+    </section>
   
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
 
     
       <div id="method-i-3C-3C" class="method-detail method-alias">
@@ -332,7 +296,7 @@ href="BadNotationError.html">BadNotationError</a>.</p>
           Alias for: <a href="Game.html#method-i-move">move</a>
         </div>
         
-      </div><!-- 3C-3C-method -->
+      </div>
 
     
       <div id="method-i-active_player" class="method-detail ">
@@ -359,14 +323,14 @@ href="BadNotationError.html">BadNotationError</a>.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">active_player</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">active_color</span> <span class="ruby-operator">?</span> <span class="ruby-value">:black</span> <span class="ruby-operator">:</span> <span class="ruby-value">:white</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- active_player-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- active_player-method -->
+      </div>
 
     
       <div id="method-i-inactive_player" class="method-detail ">
@@ -393,14 +357,14 @@ href="BadNotationError.html">BadNotationError</a>.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inactive_player</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">board</span>.<span class="ruby-identifier">active_color</span> <span class="ruby-operator">?</span> <span class="ruby-value">:white</span> <span class="ruby-operator">:</span> <span class="ruby-value">:black</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- inactive_player-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- inactive_player-method -->
+      </div>
 
     
       <div id="method-i-move" class="method-detail ">
@@ -448,7 +412,7 @@ algebraic chess notation is malformed.</p>
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">IllegalMoveError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Illegal move &#39;#{m}&#39;\n#{self.to_s}&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- move-source -->
+          </div>
           
         </div>
 
@@ -459,7 +423,7 @@ algebraic chess notation is malformed.</p>
         
 
         
-      </div><!-- move-method -->
+      </div>
 
     
       <div id="method-i-move-3D" class="method-detail method-alias">
@@ -487,7 +451,7 @@ algebraic chess notation is malformed.</p>
           Alias for: <a href="Game.html#method-i-move">move</a>
         </div>
         
-      </div><!-- move-3D-method -->
+      </div>
 
     
       <div id="method-i-moves-3D" class="method-detail ">
@@ -513,14 +477,14 @@ algebraic chess notation is malformed.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">moves=</span>(<span class="ruby-identifier">moves</span>)
   <span class="ruby-identifier">moves</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">move</span>(<span class="ruby-identifier">m</span>) }
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- moves-3D-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- moves-3D-method -->
+      </div>
 
     
       <div id="method-i-over-3F" class="method-detail ">
@@ -546,14 +510,14 @@ algebraic chess notation is malformed.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">over?</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">result</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;*&#39;</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- over-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- over-3F-method -->
+      </div>
 
     
       <div id="method-i-pgn" class="method-detail ">
@@ -582,14 +546,14 @@ algebraic chess notation is malformed.</p>
   <span class="ruby-identifier">pgn</span>.<span class="ruby-identifier">result</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">result</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">pgn</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- pgn-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- pgn-method -->
+      </div>
 
     
       <div id="method-i-status" class="method-detail ">
@@ -682,26 +646,25 @@ algebraic chess notation is malformed.</p>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-value">:unknown</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- status-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- status-method -->
+      </div>
 
     
-    </section><!-- public-instance-method-details -->
+    </section>
   
-  </section><!-- 5Buntitled-5D -->
+  </section>
+</main>
 
-</div><!-- documentation -->
 
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.2.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
