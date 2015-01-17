@@ -1,15 +1,15 @@
-Sat, 17 Jan 2015 03:41:16 +0100
-README.rdoc	Sat, 17 Jan 2015 03:39:02 +0100
-lib/chess.rb	Sat, 17 Jan 2015 03:38:37 +0100
-lib/chess/exceptions.rb	Sat, 17 Jan 2015 03:38:18 +0100
-lib/chess/game.rb	Sat, 17 Jan 2015 03:00:05 +0100
-lib/chess/gnuchess.rb	Sat, 17 Jan 2015 03:38:25 +0100
-lib/chess/pgn.rb	Sat, 17 Jan 2015 03:38:29 +0100
-lib/chess/utf8_notation.rb	Sat, 17 Jan 2015 03:32:22 +0100
-lib/chess/version.rb	Sat, 17 Jan 2015 03:37:05 +0100
-ext/bitboard.c	Tue, 13 Jan 2015 14:11:00 +0100
-ext/board.c	Sat, 17 Jan 2015 03:39:46 +0100
-ext/chess.c	Tue, 13 Jan 2015 14:11:00 +0100
-ext/common.c	Sat, 17 Jan 2015 03:39:31 +0100
-ext/game.c	Fri, 16 Jan 2015 12:46:57 +0100
-ext/special.c	Tue, 13 Jan 2015 14:11:00 +0100
+Sat, 17 Jan 2015 04:02:07 +0100
+README.rdoc	Sat, 17 Jan 2015 04:01:48 +0100
+lib/chess.rb	Sat, 17 Jan 2015 04:01:48 +0100
+lib/chess/exceptions.rb	Sat, 17 Jan 2015 04:01:48 +0100
+lib/chess/game.rb	Sat, 17 Jan 2015 04:01:48 +0100
+lib/chess/gnuchess.rb	Sat, 17 Jan 2015 04:01:48 +0100
+lib/chess/pgn.rb	Sat, 17 Jan 2015 04:01:48 +0100
+lib/chess/utf8_notation.rb	Sat, 17 Jan 2015 04:01:48 +0100
+lib/chess/version.rb	Sat, 17 Jan 2015 04:01:48 +0100
+ext/bitboard.c	Sat, 17 Jan 2015 04:01:48 +0100
+ext/board.c	Sat, 17 Jan 2015 04:01:48 +0100
+ext/chess.c	Sat, 17 Jan 2015 04:01:48 +0100
+ext/common.c	Sat, 17 Jan 2015 04:01:48 +0100
+ext/game.c	Sat, 17 Jan 2015 04:01:48 +0100
+ext/special.c	Sat, 17 Jan 2015 04:01:48 +0100
